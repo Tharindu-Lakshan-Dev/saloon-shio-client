@@ -5,6 +5,6 @@ import { NextRequest, NextResponse } from "next/server";
     const message = "Good morning "+name;
   console.log(message);  
   return NextResponse.json({
-    message:"Successfully received the data to ",
+    message:"Successfully received the data to product api",
   });
 }
