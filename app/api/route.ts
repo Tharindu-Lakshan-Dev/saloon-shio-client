@@ -1,17 +1,23 @@
+import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export  function GET(){
-  console.log("Get request received");   
-  return NextResponse.json({
-    message:"Successfully received the data to direct",
-   }); 
-}
 
 export  async function POST(req: NextRequest){
-    const body = await req.json();
-    const message = "Good morning "+body.student;
-  console.log(message);  
+  const body = await req.json();
+
+  await prisma.student.create({
+    data: {
+      name: body.name,
+      age: body.age,
+      city: body.city,
+    },
+  })
   return NextResponse.json({
-    message:"Successfully received the data",
-   });  
+    message:"Successfully received the data to Student api",
+  });
+}
+
+export async function GET(req: NextRequest) {
+  const students = await prisma.student.findMany();
+  return NextResponse.json(students);
 }
